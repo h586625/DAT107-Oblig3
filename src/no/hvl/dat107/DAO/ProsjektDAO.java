@@ -12,7 +12,7 @@ import no.hvl.dat107.Prosjekt;
 
 public class ProsjektDAO {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ansattPersistenceUnit");
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("firmaPersistenceUnit");
 
     public Prosjekt finnProsjektMedId(int id) {
         EntityManager em = emf.createEntityManager();

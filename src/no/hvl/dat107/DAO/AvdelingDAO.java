@@ -8,11 +8,12 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import no.hvl.dat107.Ansatt;
 import no.hvl.dat107.Avdeling;
 
 public class AvdelingDAO {
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ansattPersistenceUnit");
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("firmaPersistenceUnit");
 
     public Avdeling finnAvdelingMedId(int id) {
         EntityManager em = emf.createEntityManager();
@@ -29,6 +30,16 @@ public class AvdelingDAO {
         EntityManager em = emf.createEntityManager();
         try {
             TypedQuery<Avdeling> query = em.createQuery("SELECT a from Avdeling a", Avdeling.class);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Ansatt> finnAlleAnsatteForAvdeling() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Ansatt> query = em.createQuery("SELECT a from Avdeling a", Ansatt.class);
             return query.getResultList();
         } finally {
             em.close();

@@ -1,6 +1,8 @@
 package no.hvl.dat107;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,7 +11,8 @@ import javax.persistence.Table;
 public class Prosjekt {
 
     @Id
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer prosjektId;
     private String navn;
     private String beskrivelse;
 
@@ -17,17 +20,17 @@ public class Prosjekt {
     }
 
     public Prosjekt(Integer id, String navn, String beskrivelse) {
-        this.id = id;
+        this.prosjektId = id;
         this.navn = navn;
         this.beskrivelse = beskrivelse;
     }
 
     public Integer getId() {
-        return id;
+        return prosjektId;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.prosjektId = id;
     }
 
     public String getNavn() {
@@ -48,7 +51,8 @@ public class Prosjekt {
 
     @Override
     public String toString() {
-        return String.format("Prosjekt: %n ID: %d %n Navn: %s %n Beskrivelse: %s %n _________________", id, navn,
+        return String.format("Prosjekt: %n ID: %d %n Navn: %s %n Beskrivelse: %s %n _________________", prosjektId,
+                navn,
                 beskrivelse);
     }
 

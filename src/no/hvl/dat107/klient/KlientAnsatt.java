@@ -10,14 +10,15 @@ public class KlientAnsatt {
     public static void main(String[] args) {
 
         AnsattDAO ansDAO = new AnsattDAO();
-        // Ansatt a = ansDAO.finnAnsatt(1002);
-        // System.out.println(a.toString());
+        Ansatt a = ansDAO.finnAnsattMedId(1002);
+        System.out.println(a.toString());
 
-        // Ansatt ny = new Ansatt(1004, "PE", "Pablo", "Escobar", "Sjef", 2000000);
+        // Ansatt ny = new Ansatt(1000, "PE", "Pablo", "Escobar", LocalDate.of(2019, 07,
+        // 19), "Sjef", 10);
         // ansDAO.LagNyAnsatt(ny);
 
         List<Ansatt> alleAnsatte = ansDAO.finnAlleAnsatte();
-        alleAnsatte.forEach(a -> System.out.println("   " + a));
+        alleAnsatte.forEach(ansatt -> System.out.println("   " + ansatt));
 
     }
 

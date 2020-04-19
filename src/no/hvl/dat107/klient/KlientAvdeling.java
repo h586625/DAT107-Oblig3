@@ -10,8 +10,8 @@ public class KlientAvdeling {
     public static void main(String[] args) {
 
         AvdelingDAO avdDAO = new AvdelingDAO();
-//        Avdeling a = avdDAO.finnAvdelingMedId(2);
-//        System.out.println(a.toString());
+        Avdeling a = avdDAO.finnAvdelingMedId(10);
+        System.out.println(a.toString());
 
         // avdDAO.LagNyAvdeling(ny);
 

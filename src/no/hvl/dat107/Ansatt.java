@@ -1,7 +1,11 @@
 package no.hvl.dat107;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -9,34 +13,41 @@ import javax.persistence.Table;
 public class Ansatt {
 
     @Id
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer ansattid;
     private String brukernavn;
     private String fornavn;
     private String etternavn;
-    // dato vent med denne, spesiell variabel
+    // dato vent med denne
+    // private LocalDate ansettelsesdato;
     private String stilling;
     private int lonn;
-    // vent med denne Avdeling avdeling;
-    // vent med denne Prosjekt prosjekt;
+    // One to one because each sector can only have one boss
+    // and a boss can only be assigned one sector
+    @OneToOne
+    @JoinColumn(name = "avdelingid", referencedColumnName = "avdelingid")
+    private Avdeling avdelingid;
 
     public Ansatt() {
     }
 
-    public Ansatt(Integer id, String brukernavn, String fornavn, String etternavn, String stilling, int lonn) {
-        this.id = id;
+    public Ansatt(Integer id, String brukernavn, String fornavn, String etternavn, String stilling, int lonn,
+            Avdeling avdeling) {
+        this.ansattid = id;
         this.brukernavn = brukernavn;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
         this.stilling = stilling;
         this.lonn = lonn;
+        this.avdelingid = avdeling;
     }
 
     public Integer getId() {
-        return id;
+        return ansattid;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.ansattid = id;
     }
 
     public String getBrukernavn() {
@@ -79,11 +90,19 @@ public class Ansatt {
         this.lonn = lonn;
     }
 
+    public Avdeling getAvdeling() {
+        return avdelingid;
+    }
+
+    public void setAvdeling(Avdeling avdeling) {
+        this.avdelingid = avdeling;
+    }
+
     @Override
     public String toString() {
         return String.format(
-                "Ansatt: %n ID: %d %n Fornavn: %s %n Etternavn: %s %n Brukernavn: %s %n Lønn: %d %n Stilling: %s %n _________________",
-                id, fornavn, etternavn, brukernavn, lonn, stilling);
+                "Ansatt: %n ID: %d %n Fornavn: %s %n Etternavn: %s %n Brukernavn: %s %n Lønn: %d %n Stilling: %s %n Avdeling: %s %n _________________",
+                ansattid, fornavn, etternavn, brukernavn, lonn, stilling, avdelingid.getNavn());
     }
 
 }
