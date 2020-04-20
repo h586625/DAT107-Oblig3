@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import no.hvl.dat107.Ansatt;
+import no.hvl.dat107.Avdeling;
 import no.hvl.dat107.DAO.AnsattDAO;
+import no.hvl.dat107.DAO.AvdelingDAO;
 
 public class KlientAnsatt {
 
@@ -14,9 +16,11 @@ public class KlientAnsatt {
         Ansatt a = ansDAO.finnAnsattMedId(1002);
         System.out.println(a.toString());
 
-        // Ansatt ny = new Ansatt(1000, "PE", "Pablo", "Escobar", LocalDate.of(2019, 07,
-        // 19), "Sjef", 10);
-        // ansDAO.LagNyAnsatt(ny);
+        AvdelingDAO avdDAO = new AvdelingDAO();
+        Avdeling avd = avdDAO.finnAvdelingMedId(10);
+
+        Ansatt ny = new Ansatt("BW", "Bat", "Man", LocalDate.of(2012, 07, 19), "Guard", 1000000, avd);
+        ansDAO.LagNyAnsatt(ny);
 
         ansDAO.oppdaterAnsettelsesdato(1002, LocalDate.of(2019, 07, 19));
 

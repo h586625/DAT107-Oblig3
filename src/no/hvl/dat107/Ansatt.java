@@ -32,17 +32,16 @@ public class Ansatt {
     public Ansatt() {
     }
 
-    public Ansatt(Integer id, String brukernavn, String fornavn, String etternavn, LocalDate ansettelsesdato,
+    public Ansatt(String brukernavn, String fornavn, String etternavn, LocalDate ansettelsesdato,
             String stilling, int lonn,
-            Avdeling avdeling) {
-        this.ansattid = id;
+            Avdeling avdelingid) {
         this.brukernavn = brukernavn;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
         this.ansettelsesdato = ansettelsesdato;
         this.stilling = stilling;
         this.lonn = lonn;
-        this.avdelingid = avdeling;
+        this.avdelingid = avdelingid;
     }
 
     public Integer getId() {
