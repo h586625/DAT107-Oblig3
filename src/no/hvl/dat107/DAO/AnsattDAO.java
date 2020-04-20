@@ -1,5 +1,6 @@
 package no.hvl.dat107.DAO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -133,6 +134,24 @@ public class AnsattDAO {
             tx.begin();
             Ansatt a = em.find(Ansatt.class, id);
             a.setEtternavn(nyttNavn);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        } finally {
+            em.close();
+        }
+    }
+
+    public void oppdaterAnsettelsesdato(int id, LocalDate nyDato) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Ansatt a = em.find(Ansatt.class, id);
+            a.setAnsettelsesdato(nyDato);
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
