@@ -235,4 +235,25 @@ public class AnsattDAO {
             em.close();
         }
     }
+
+    // Will throw error if the employee is the boss of
+    // a section, because a section MUST have a boss (NOT NULL)
+    // TODO: Should handle this exception somehow
+    public void oppdaterAvdelingid(int id, int nyId) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Ansatt a = em.find(Ansatt.class, id);
+            a.setId(nyId);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+        } finally {
+            em.close();
+        }
+    }
 }
