@@ -8,7 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import no.hvl.dat107.Prosjekt;
+import no.hvl.dat107.entity.Prosjekt;
 
 public class ProsjektDAO {
 

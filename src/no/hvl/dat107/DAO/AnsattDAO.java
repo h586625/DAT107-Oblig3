@@ -9,7 +9,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import no.hvl.dat107.Ansatt;
+import no.hvl.dat107.entity.Ansatt;
+import no.hvl.dat107.entity.Avdeling;
 
 public class AnsattDAO {
 
@@ -252,6 +253,34 @@ public class AnsattDAO {
             if (tx.isActive()) {
                 tx.rollback();
             }
+        } finally {
+            em.close();
+        }
+    }
+
+    // TODO: Doesn't work if the employee is already boss of another sector
+    // due to NOT NULL violation of sjef column
+    public void oppdaterAvdeling(int ansattID, int avdID) {
+
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        String jpql = "SELECT a FROM Ansatt a " + "WHERE a.ansattid = :ansattID AND a.avdeling.sjef != :ansattID";
+
+        Avdeling avd = em.find(Avdeling.class, avdID);
+
+        try {
+            tx.begin();
+
+            TypedQuery<Ansatt> query = em.createQuery(jpql, Ansatt.class);
+            query.setParameter("ansattID", ansattID);
+            Ansatt a = query.getSingleResult();
+
+            a.setAvdeling(avd);
+            em.merge(a);
+            tx.commit();
+        } catch (Exception NoResultException) {
+            System.out.println("OBS! Ingen avdeling ble oppdatert.");
         } finally {
             em.close();
         }

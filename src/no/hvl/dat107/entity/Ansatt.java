@@ -1,4 +1,4 @@
-package no.hvl.dat107;
+package no.hvl.dat107.entity;
 
 import java.time.LocalDate;
 
@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,23 +25,23 @@ public class Ansatt {
     private int lonn;
     // One to one because each sector can only have one boss
     // and a boss can only be assigned one sector
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "avdelingid", referencedColumnName = "avdelingid")
-    private Avdeling avdelingid;
+    private Avdeling avdeling;
 
     public Ansatt() {
     }
 
     public Ansatt(String brukernavn, String fornavn, String etternavn, LocalDate ansettelsesdato,
             String stilling, int lonn,
-            Avdeling avdelingid) {
+            Avdeling avdeling) {
         this.brukernavn = brukernavn;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
         this.ansettelsesdato = ansettelsesdato;
         this.stilling = stilling;
         this.lonn = lonn;
-        this.avdelingid = avdelingid;
+        this.avdeling = avdeling;
     }
 
     public Integer getId() {
@@ -101,11 +101,11 @@ public class Ansatt {
     }
 
     public Avdeling getAvdeling() {
-        return avdelingid;
+        return avdeling;
     }
 
     public void setAvdeling(Avdeling avdeling) {
-        this.avdelingid = avdeling;
+        this.avdeling = avdeling;
     }
 
     @Override
@@ -113,7 +113,7 @@ public class Ansatt {
         return String.format(
                 "Ansatt: %n ID: %d %n Fornavn: %s %n Etternavn: %s %n Ansettelsesdato: " + ansettelsesdato.toString()
                         + " %n Brukernavn: %s %n Lønn: %d %n Stilling: %s %n Avdeling: %s %n _________________",
-                ansattid, fornavn, etternavn, brukernavn, lonn, stilling, avdelingid.getNavn());
+                ansattid, fornavn, etternavn, brukernavn, lonn, stilling, avdeling.getNavn());
     }
 
 }

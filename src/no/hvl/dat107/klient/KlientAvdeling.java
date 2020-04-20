@@ -3,10 +3,10 @@ package no.hvl.dat107.klient;
 import java.util.ArrayList;
 import java.util.List;
 
-import no.hvl.dat107.Ansatt;
-import no.hvl.dat107.Avdeling;
 import no.hvl.dat107.DAO.AnsattDAO;
 import no.hvl.dat107.DAO.AvdelingDAO;
+import no.hvl.dat107.entity.Ansatt;
+import no.hvl.dat107.entity.Avdeling;
 
 public class KlientAvdeling {
 
@@ -22,8 +22,10 @@ public class KlientAvdeling {
         Ansatt ansatt = ansDAO.finnAnsattMedId(1000);
         List<Ansatt> ansatte = new ArrayList<Ansatt>();
         ansatte.add(ansatt);
-        Avdeling ny = new Avdeling(40, "Design", ansatt, ansatte);
+        Avdeling ny = new Avdeling("Design", ansatt.getId(), ansatte);
         avdDAO.LagNyAvdeling(ny);
+
+        //
 
         // find all sectors
         List<Avdeling> alleAvdelinger = avdDAO.finnAlleAvdelinger();

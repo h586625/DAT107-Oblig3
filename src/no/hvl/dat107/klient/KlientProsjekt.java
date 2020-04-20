@@ -2,8 +2,8 @@ package no.hvl.dat107.klient;
 
 import java.util.List;
 
-import no.hvl.dat107.Prosjekt;
 import no.hvl.dat107.DAO.ProsjektDAO;
+import no.hvl.dat107.entity.Prosjekt;
 
 public class KlientProsjekt {
 

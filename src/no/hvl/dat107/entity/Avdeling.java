@@ -1,4 +1,4 @@
-package no.hvl.dat107;
+package no.hvl.dat107.entity;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import no.hvl.dat107.DAO.AnsattDAO;
 
 @Entity
 @Table(name = "avdeling", schema = "oblig_3")
@@ -20,19 +20,14 @@ public class Avdeling {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer avdelingid;
     private String navn;
-    // One to one because each sector can only have one boss
-    // and a boss can only be assigned one sector
-    @OneToOne(mappedBy = "avdelingid")
-    @JoinColumn(name = "sjef", referencedColumnName = "ansattid")
-    private Ansatt sjef;
-    @OneToMany(mappedBy = "avdelingid", fetch = FetchType.EAGER)
+    private int sjef;
+    @OneToMany(mappedBy = "avdeling", fetch = FetchType.EAGER)
     private List<Ansatt> ansatte;
 
     public Avdeling() {
     }
 
-    public Avdeling(Integer id, String navn, Ansatt sjef, List<Ansatt> ansatte) {
-        this.avdelingid = id;
+    public Avdeling(String navn, int sjef, List<Ansatt> ansatte) {
         this.navn = navn;
         this.sjef = sjef;
         this.ansatte = ansatte;
@@ -54,12 +49,19 @@ public class Avdeling {
         this.navn = navn;
     }
 
-    public Ansatt getSjef() {
+    public int getSjef() {
         return sjef;
     }
 
-    public void setSjef(Ansatt sjef) {
+    public void setSjef(int sjef) {
         this.sjef = sjef;
+    }
+
+    public String getSjefNavn(int id) {
+        AnsattDAO ansdao = new AnsattDAO();
+        Ansatt ans = ansdao.finnAnsattMedId(id);
+
+        return ans.getFornavn() + " " + ans.getEtternavn();
     }
 
     public List<Ansatt> getAnsatte() {
@@ -70,10 +72,18 @@ public class Avdeling {
         this.ansatte = ansatte;
     }
 
+    public void leggTilAnsatt(Ansatt a) {
+        ansatte.add(a);
+    }
+
+    public void fjernAnsatt(Ansatt a) {
+        ansatte.remove(a);
+    }
+
     @Override
     public String toString() {
         String str = String.format("Avdeling: %n ID: %d %n Navn: %s %n Sjef: %s %n", avdelingid, navn,
-                sjef.getFornavn());
+                getSjefNavn(sjef));
         str += " Ansatte:\n";
         for (int i = 0; i < ansatte.size(); i++) {
             Ansatt ansatt = ansatte.get(i);
