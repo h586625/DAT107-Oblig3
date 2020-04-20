@@ -34,6 +34,7 @@ CREATE TABLE Ansatt
 	brukernavn VARCHAR(4) NOT NULL,
 	fornavn VARCHAR(30) NOT NULL,
 	etternavn VARCHAR(30) NOT NULL,
+	ansettelsesdato DATE DEFAULT CURRENT_DATE NOT NULL,
 	stilling VARCHAR(30) NOT NULL,
     lonn integer NOT NULL,
 	avdelingid integer NOT NULL,
@@ -43,11 +44,11 @@ CREATE TABLE Ansatt
 CREATE SEQUENCE ansatt_seq START 1000 INCREMENT 1 OWNED BY oblig_3.ansatt.ansattid;
 
 INSERT INTO
-  Ansatt(ansattid, brukernavn, fornavn, etternavn, stilling, lonn, avdelingid)
+  Ansatt(ansattid, brukernavn, fornavn, etternavn, ansettelsesdato, stilling, lonn, avdelingid)
 VALUES
-    (nextval('ansatt_seq'), 'SPSH', 'Stian', 'Hauge', 'Leder', 1000000, 10),
-    (nextval('ansatt_seq'), 'CBR', 'Chris', 'Riis', 'Pleb', 250000, 30),
-    (nextval('ansatt_seq'), 'EKE', 'Eirik', 'Edgren', 'Pleb2', 1000000,20);
+    (nextval('ansatt_seq'), 'SPSH', 'Stian', 'Hauge', '2000-02-15', 'Leder', 1000000, 10),
+    (nextval('ansatt_seq'), 'CBR', 'Chris', 'Riis', '2005-07-06', 'Pleb', 250000, 30),
+    (nextval('ansatt_seq'), 'EKE', 'Eirik', 'Edgren', '2016-11-21', 'Pleb2', 1000000,20);
 
 CREATE TABLE oblig_3.prosjekt
 (

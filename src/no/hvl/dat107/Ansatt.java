@@ -1,5 +1,7 @@
 package no.hvl.dat107;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +20,7 @@ public class Ansatt {
     private String brukernavn;
     private String fornavn;
     private String etternavn;
-    // dato vent med denne
-    // private LocalDate ansettelsesdato;
+    private LocalDate ansettelsesdato;
     private String stilling;
     private int lonn;
     // One to one because each sector can only have one boss
@@ -31,12 +32,14 @@ public class Ansatt {
     public Ansatt() {
     }
 
-    public Ansatt(Integer id, String brukernavn, String fornavn, String etternavn, String stilling, int lonn,
+    public Ansatt(Integer id, String brukernavn, String fornavn, String etternavn, LocalDate ansettelsesdato,
+            String stilling, int lonn,
             Avdeling avdeling) {
         this.ansattid = id;
         this.brukernavn = brukernavn;
         this.fornavn = fornavn;
         this.etternavn = etternavn;
+        this.ansettelsesdato = ansettelsesdato;
         this.stilling = stilling;
         this.lonn = lonn;
         this.avdelingid = avdeling;
@@ -74,6 +77,14 @@ public class Ansatt {
         this.etternavn = etternavn;
     }
 
+    public LocalDate getAnsettelsesdato() {
+        return ansettelsesdato;
+    }
+
+    public void setAnsettelsesdato(LocalDate ansettelsesdato) {
+        this.ansettelsesdato = ansettelsesdato;
+    }
+
     public String getStilling() {
         return stilling;
     }
@@ -101,7 +112,8 @@ public class Ansatt {
     @Override
     public String toString() {
         return String.format(
-                "Ansatt: %n ID: %d %n Fornavn: %s %n Etternavn: %s %n Brukernavn: %s %n Lønn: %d %n Stilling: %s %n Avdeling: %s %n _________________",
+                "Ansatt: %n ID: %d %n Fornavn: %s %n Etternavn: %s %n Ansettelsesdato: " + ansettelsesdato.toString()
+                        + " %n Brukernavn: %s %n Lønn: %d %n Stilling: %s %n Avdeling: %s %n _________________",
                 ansattid, fornavn, etternavn, brukernavn, lonn, stilling, avdelingid.getNavn());
     }
 
